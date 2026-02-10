@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { activeFilterChanged } from "../../actions";
 
 const HeroesFilters = () => {
-  const { filters, activeFilter } = useSelector((state) => state);
+  const { filters, activeFilter } = useSelector((state) => state.filters);
   const dispatch = useDispatch();
 
   const onFilterClick = (id) => {

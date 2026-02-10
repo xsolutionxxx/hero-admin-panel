@@ -31,11 +31,11 @@ export const heroCreated = (hero) => {
   };
 };
 
-export const filtersFetching = () => {
+/* export const filtersFetching = () => {
   return {
     type: "FILTERS_FETCHING",
   };
-};
+}; */
 
 export const filterFetched = (filters) => {
   return {
@@ -44,13 +44,11 @@ export const filterFetched = (filters) => {
   };
 };
 
-export const filtersFetchingError = () => {
+/* export const filtersFetchingError = () => {
   return {
     type: "FILTERS_FETCHING_ERROR",
   };
-};
-
-export const activeFilterChanged = (filterID) => {
+} */ export const activeFilterChanged = (filterID) => {
   return {
     type: "ACTIVE_FILTER_CHANGED",
     payload: filterID,

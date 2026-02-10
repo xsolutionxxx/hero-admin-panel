@@ -1,5 +1,5 @@
 import { useHttp } from "../../hooks/http.hook";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -12,9 +12,24 @@ import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from "../spinner/Spinner";
 
 const HeroesList = () => {
-  const { heroes, heroesLoadingStatus, activeFilter } = useSelector(
+  /* const someState = useSelector((state) => ({
+    heroes: state.heroes.heroes,
+    activeFilter: state.filters.activeFilter,
+  })); - кожен раз створює новий обєкт, викликає перерендер через порівнювання силок обєктів*/
+
+  const filteredHeroes = useSelector((state) => {
+    if (state.filters.activeFilter === "all") {
+      return state.heroes.heroes;
+    } else {
+      return state.heroes.heroes.filter(
+        (hero) => hero.element === state.filters.activeFilter,
+      );
+    }
+  });
+  const heroesLoadingStatus = useSelector((state) => state.heroesLoadingStatus);
+  /* const { heroes, heroesLoadingStatus, activeFilter } = useSelector(
     (state) => state,
-  );
+  ); */
   const dispatch = useDispatch();
   const { request } = useHttp();
 
@@ -27,18 +42,22 @@ const HeroesList = () => {
     // eslint-disable-next-line
   }, []);
 
-  const onDeleteHero = (id) => {
-    request(`http://localhost:3002/heroes/${id}`, "DELETE")
-      .then(() => {
-        dispatch(heroDeleted(id));
-      })
-      .catch((err) => console.log(err));
-  };
+  const onDeleteHero = useCallback(
+    (id) => {
+      request(`http://localhost:3002/heroes/${id}`, "DELETE")
+        .then(() => {
+          dispatch(heroDeleted(id));
+        })
+        .catch((err) => console.log(err));
+    },
 
-  const filteredHeroes = heroes.filter((item) => {
+    [request, dispatch],
+  );
+
+  /* const filteredHeroes = heroes.filter((item) => {
     if (activeFilter === "all") return true;
     return item.element === activeFilter;
-  });
+  }); */
 
   if (heroesLoadingStatus === "loading") {
     return <Spinner />;
@@ -55,9 +74,8 @@ const HeroesList = () => {
       return (
         <HeroesListItem
           key={id}
-          id={id}
           {...props}
-          onDeleteHero={onDeleteHero}
+          onDeleteHero={() => onDeleteHero(id)}
         />
       );
     });
