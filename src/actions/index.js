@@ -1,3 +1,19 @@
+export const fetchHeroes = (request) => (dispatch) => {
+  dispatch(heroesFetching);
+  request("http://localhost:3002/heroes")
+    .then((data) => dispatch(heroesFetched(data)))
+    .catch(() => dispatch(heroesFetchingError()));
+};
+
+export const fetchFilters = (request) => (dispatch) => {
+  dispatch(filtersFetching);
+  request(`http://localhost:3002/filters`)
+    .then((data) => {
+      dispatch(filterFetched(data));
+    })
+    .catch(() => dispatch(filtersFetchingError()));
+};
+
 export const heroesFetching = () => {
   return {
     type: "HEROES_FETCHING",
@@ -31,11 +47,11 @@ export const heroCreated = (hero) => {
   };
 };
 
-/* export const filtersFetching = () => {
+export const filtersFetching = () => {
   return {
     type: "FILTERS_FETCHING",
   };
-}; */
+};
 
 export const filterFetched = (filters) => {
   return {
@@ -44,13 +60,24 @@ export const filterFetched = (filters) => {
   };
 };
 
-/* export const filtersFetchingError = () => {
+export const filtersFetchingError = () => {
   return {
     type: "FILTERS_FETCHING_ERROR",
   };
-} */ export const activeFilterChanged = (filterID) => {
+};
+
+export const activeFilterChanged = (filterID) => {
   return {
     type: "ACTIVE_FILTER_CHANGED",
     payload: filterID,
   };
 };
+
+/* export const activeFilterChanged = (filterID) => (dispatch) => {
+  setTimeout(() => {
+    dispatch({
+      type: "ACTIVE_FILTER_CHANGED",
+      payload: filterID,
+    });
+  }, 1000);
+}; */

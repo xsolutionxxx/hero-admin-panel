@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "reselect";
 
 import {
-  /* heroesFetching, */
+  /* heroesFetching,
   heroesFetched,
-  heroesFetchingError,
+  heroesFetchingError, */
+  fetchHeroes,
   heroDeleted,
 } from "../../actions";
 import HeroesListItem from "../heroesListItem/HeroesListItem";
@@ -53,10 +54,12 @@ const HeroesList = () => {
   const { request } = useHttp();
 
   useEffect(() => {
-    dispatch("HEROES_FETCHING");
+    /* dispatch("HEROES_FETCHING");
     request("http://localhost:3002/heroes")
       .then((data) => dispatch(heroesFetched(data)))
-      .catch(() => dispatch(heroesFetchingError()));
+      .catch(() => dispatch(heroesFetchingError())); */
+
+    dispatch(fetchHeroes(request));
 
     // eslint-disable-next-line
   }, []);

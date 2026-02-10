@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { heroCreated, filterFetched } from "../../actions";
+import { heroCreated, fetchFilters /* filterFetched */ } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHttp } from "../../hooks/http.hook";
 import { v4 as uuidv4 } from "uuid";
@@ -11,7 +11,9 @@ const HeroesAddForm = () => {
     element: "",
   });
 
-  const { filters } = useSelector((state) => state.filters);
+  const { filters, filtersLoadingStatus } = useSelector(
+    (state) => state.filters,
+  );
   const dispatch = useDispatch();
   const { request } = useHttp();
 
@@ -40,14 +42,22 @@ const HeroesAddForm = () => {
   };
 
   useEffect(() => {
-    request(`http://localhost:3002/filters`)
+    /* request(`http://localhost:3002/filters`)
       .then((data) => {
         dispatch(filterFetched(data));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)); */
+
+    dispatch(fetchFilters(request));
 
     // eslint-disable-next-line
   }, []);
+
+  if (filtersLoadingStatus === "loading") {
+    return <Spinner />;
+  } else if (filtersLoadingStatus === "error") {
+    return <h5 className="text-center mt-5">Download error</h5>;
+  }
 
   const renderFilters = (filters) => {
     return filters.map(({ name, id }) => {
