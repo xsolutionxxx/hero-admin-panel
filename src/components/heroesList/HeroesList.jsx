@@ -1,9 +1,10 @@
 import { useHttp } from "../../hooks/http.hook";
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { createSelector } from "reselect";
 
 import {
-  heroesFetching,
+  /* heroesFetching, */
   heroesFetched,
   heroesFetchingError,
   heroDeleted,
@@ -17,7 +18,19 @@ const HeroesList = () => {
     activeFilter: state.filters.activeFilter,
   })); - кожен раз створює новий обєкт, викликає перерендер через порівнювання силок обєктів*/
 
-  const filteredHeroes = useSelector((state) => {
+  const filteredHeroesSlector = createSelector(
+    (state) => state.heroes.heroes,
+    (state) => state.filters.activeFilter,
+    (heroes, filter) => {
+      if (filter === "all") {
+        return heroes;
+      } else {
+        return heroes.filter((hero) => hero.element === filter);
+      }
+    },
+  );
+
+  /* const filteredHeroes = useSelector((state) => {
     if (state.filters.activeFilter === "all") {
       return state.heroes.heroes;
     } else {
@@ -25,16 +38,22 @@ const HeroesList = () => {
         (hero) => hero.element === state.filters.activeFilter,
       );
     }
-  });
-  const heroesLoadingStatus = useSelector((state) => state.heroesLoadingStatus);
+  }); */
+
+  const filteredHeroes = useSelector(filteredHeroesSlector);
+
+  const heroesLoadingStatus = useSelector(
+    (state) => state.heroes.heroesLoadingStatus,
+  );
   /* const { heroes, heroesLoadingStatus, activeFilter } = useSelector(
     (state) => state,
   ); */
+
   const dispatch = useDispatch();
   const { request } = useHttp();
 
   useEffect(() => {
-    dispatch(heroesFetching());
+    dispatch("HEROES_FETCHING");
     request("http://localhost:3002/heroes")
       .then((data) => dispatch(heroesFetched(data)))
       .catch(() => dispatch(heroesFetchingError()));
