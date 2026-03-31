@@ -1,9 +1,42 @@
+import { createReducer } from "@reduxjs/toolkit";
+
+import {
+  heroesFetching,
+  heroesFetched,
+  heroesFetchingError,
+  heroCreated,
+  heroDeleted,
+} from "../actions";
+
 const initialState = {
   heroes: [],
   heroesLoadingStatus: "idle",
 };
 
-const heroes = (state = initialState, action) => {
+const heroes = createReducer(initialState, (builder) => {
+  builder
+    .addCase(heroesFetching, (state) => {
+      state.heroesLoadingStatus = "loading";
+    })
+    .addCase(heroesFetched, (state, action) => {
+      state.heroesLoadingStatus = "idle";
+      state.heroes = action.payload;
+    })
+    .addCase(heroesFetchingError, (state) => {
+      state.heroesLoadingStatus = "error";
+    })
+    .addCase(heroCreated, (state, action) => {
+      state.heroesLoadingStatus = "idle";
+      state.heroes.push(action.payload);
+    })
+    .addCase(heroDeleted, (state, action) => {
+      state.heroesLoadingStatus = "idle";
+      state.heroes = state.heroes.filter((hero) => hero.id !== action.payload);
+    })
+    .addDefaultCase(() => {});
+});
+
+/* const heroes = (state = initialState, action) => {
   switch (action.type) {
     case "HEROES_FETCHING":
       return {
@@ -21,21 +54,21 @@ const heroes = (state = initialState, action) => {
         ...state,
         heroesLoadingStatus: "error",
       };
-    case "HERO_DELETED":
-      return {
-        ...state,
-        heroes: state.heroes.filter((hero) => hero.id !== action.payload),
-        heroesLoadingStatus: "idle",
-      };
     case "HERO_CREATED":
       return {
         ...state,
         heroes: [...state.heroes, action.payload],
         heroesLoadingStatus: "idle",
       };
+    case "HERO_DELETED":
+      return {
+        ...state,
+        heroes: state.heroes.filter((hero) => hero.id !== action.payload),
+        heroesLoadingStatus: "idle",
+      };
     default:
       return state;
   }
-};
+}; */
 
 export default heroes;

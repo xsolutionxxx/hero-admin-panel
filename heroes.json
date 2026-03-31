@@ -1,21 +1,15 @@
 {
   "heroes": [
     {
-      "id": "ac4c4c30-bbf3-412f-abb2-0173330cfdf0",
-      "name": "Uliana G.",
-      "description": "asdasf",
-      "element": "fire"
-    },
-    {
-      "id": "62790c17-7ee1-4bf1-8fa2-04920c7a4104",
+      "id": "f3dc9cd5-2bc4-454f-bf51-8d66ca125a16",
       "name": "Sara",
-      "description": "asd",
-      "element": "water"
+      "description": "cxzc",
+      "element": ""
     },
     {
-      "id": "422a93af-5083-41f0-9d60-1cb5307f06ed",
-      "name": "Jessica",
-      "description": "asdasd",
+      "id": "4801d9bb-4d98-4889-b14c-083d2c8ea4e0",
+      "name": "Sara",
+      "description": "jnnjjn",
       "element": "water"
     }
   ],

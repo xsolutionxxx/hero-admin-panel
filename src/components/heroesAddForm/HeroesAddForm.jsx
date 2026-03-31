@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { heroCreated, fetchFilters /* filterFetched */ } from "../../actions";
+import { fetchFilters /* heroCreated, filterFetched */ } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHttp } from "../../hooks/http.hook";
 import { v4 as uuidv4 } from "uuid";
+import Spinner from "../spinner/Spinner";
+import { heroCreated } from "../heroesList/heroesSlice";
 
 const HeroesAddForm = () => {
   const [formData, setFormData] = useState({

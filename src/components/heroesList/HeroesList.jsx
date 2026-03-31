@@ -6,12 +6,19 @@ import { createSelector } from "reselect";
 import {
   /* heroesFetching,
   heroesFetched,
-  heroesFetchingError, */
+  heroesFetchingError,
+  heroDeleted, */
   fetchHeroes,
-  heroDeleted,
 } from "../../actions";
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from "../spinner/Spinner";
+
+import {
+  heroesFetching,
+  heroesFetched,
+  heroesFetchingError,
+  heroDeleted,
+} from "./heroesSlice";
 
 const HeroesList = () => {
   /* const someState = useSelector((state) => ({
@@ -54,7 +61,7 @@ const HeroesList = () => {
   const { request } = useHttp();
 
   useEffect(() => {
-    /* dispatch("HEROES_FETCHING");
+    /* dispatch(heroesFetching);
     request("http://localhost:3002/heroes")
       .then((data) => dispatch(heroesFetched(data)))
       .catch(() => dispatch(heroesFetchingError())); */
