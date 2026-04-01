@@ -6,15 +6,25 @@
 // Представьте, что вы попросили бэкенд-разработчика об этом
 import { useDispatch, useSelector } from "react-redux";
 // import { activeFilterChanged } from "../../actions";
-import { activeFilterChanged } from "./filtersSlice";
+import { activeFilterChanged, selectAll } from "./filtersSlice";
+import Spinner from "../spinner/Spinner";
 
 const HeroesFilters = () => {
-  const { filters, activeFilter } = useSelector((state) => state.filters);
+  const { activeFilter, filtersLoadingStatus } = useSelector(
+    (state) => state.filters,
+  );
+  const filters = useSelector(selectAll);
   const dispatch = useDispatch();
 
   const onFilterClick = (id) => {
     dispatch(activeFilterChanged(id));
   };
+
+  if (filtersLoadingStatus === "loading") {
+    return <Spinner />;
+  } else if (filtersLoadingStatus === "error") {
+    return <h5 className="text-center mt-5">Ошибка загрузки</h5>;
+  }
 
   return (
     <div className="card shadow-lg mt-4">

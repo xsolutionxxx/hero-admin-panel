@@ -1,34 +1,22 @@
 {
   "heroes": [
     {
-      "id": "f3dc9cd5-2bc4-454f-bf51-8d66ca125a16",
+      "id": "1fa0765e-bf56-4fcd-8570-1f7c6119b98b",
       "name": "Sara",
-      "description": "cxzc",
-      "element": ""
+      "description": "asdsad",
+      "element": "fire"
     },
     {
-      "id": "200e8680-c834-4cee-9bba-d0bf2944037e",
-      "name": "Nazar",
-      "description": "dfdf",
-      "element": ""
-    },
-    {
-      "id": "795e9c66-badd-4146-8718-7ab4fb4db432",
-      "name": "asd",
-      "description": "asd",
-      "element": "wind"
-    },
-    {
-      "id": "83947a6f-2629-4c21-8fa3-49e87db5969a",
-      "name": "cddd",
-      "description": "3213",
-      "element": "earth"
-    },
-    {
-      "id": "c0182f23-05fd-43b2-bdd4-34a3d6a69a1f",
-      "name": "Nazar",
-      "description": "asa",
+      "id": "eb1044d9-d410-4ca8-83b9-87b0f9ecf130",
+      "name": "Uliana G.",
+      "description": "asdas",
       "element": "water"
+    },
+    {
+      "id": "ecb52f8c-dbf4-4ec6-8b73-4e54c6d55a5d",
+      "name": "Alex",
+      "description": "sad",
+      "element": "wind"
     }
   ],
   "filters": [

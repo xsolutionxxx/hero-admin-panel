@@ -13,7 +13,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from "../spinner/Spinner";
 
-import { heroDeleted, fetchHeroes } from "./heroesSlice";
+import { heroDeleted, fetchHeroes, filteredHeroesSlector } from "./heroesSlice";
 
 const HeroesList = () => {
   /* const someState = useSelector((state) => ({
@@ -21,8 +21,9 @@ const HeroesList = () => {
     activeFilter: state.filters.activeFilter,
   })); - кожен раз створює новий обєкт, викликає перерендер через порівнювання силок обєктів*/
 
-  const filteredHeroesSlector = createSelector(
-    (state) => state.heroes.heroes,
+  /* const filteredHeroesSlector = createSelector(
+    // (state) => state.heroes.heroes,
+    selectAll,
     (state) => state.filters.activeFilter,
     (heroes, filter) => {
       if (filter === "all") {
@@ -31,7 +32,7 @@ const HeroesList = () => {
         return heroes.filter((hero) => hero.element === filter);
       }
     },
-  );
+  ); */
 
   /* const filteredHeroes = useSelector((state) => {
     if (state.filters.activeFilter === "all") {
