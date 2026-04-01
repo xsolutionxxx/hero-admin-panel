@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { fetchFilters /* heroCreated, filterFetched */ } from "../../actions";
+/* import { fetchFilters, heroCreated, filterFetched } from "../../actions"; */
 import { useDispatch, useSelector } from "react-redux";
 import { useHttp } from "../../hooks/http.hook";
 import { v4 as uuidv4 } from "uuid";
 import Spinner from "../spinner/Spinner";
 import { heroCreated } from "../heroesList/heroesSlice";
+import { fetchFilters } from "../heroesFilters/filtersSlice";
 
 const HeroesAddForm = () => {
   const [formData, setFormData] = useState({
@@ -50,7 +51,7 @@ const HeroesAddForm = () => {
       })
       .catch((err) => console.log(err)); */
 
-    dispatch(fetchFilters(request));
+    dispatch(fetchFilters());
 
     // eslint-disable-next-line
   }, []);
